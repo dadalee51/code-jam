@@ -26,8 +26,8 @@ def solve(fileName):
 				c = [int(x) for x in f.readline().split()][1:]
 				dn.append(c)
 			#sort by len and then first malt value
-			dn = sorted(dn, key=lambda x : (len(x), x[1]) )
-			print dn
+			#dn = sorted(dn, key=lambda x : (len(x), x[1]) ) #dont need to sort, really.
+			#print dn
 
 
 			fout.write("Case #"+str(ci+1)+": IMPOSSIBLE" + "\n")	
