@@ -27,9 +27,16 @@ def solve(fileName):
 				dn.append(c)
 			#sort by len and then first malt value
 			#dn = sorted(dn, key=lambda x : (len(x), x[1]) ) #dont need to sort, really.
-			#print dn
-
-
+			print dn
+			i=1
+			c2=0
+			for bi in dn:
+				c2+=1
+				for j in bi:
+					i+=1
+					i%=2
+					#print c2, i, j
+					
 			fout.write("Case #"+str(ci+1)+": IMPOSSIBLE" + "\n")	
 	return;
 
