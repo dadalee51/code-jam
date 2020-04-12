@@ -1,0 +1,5 @@
+for T in range(int(input())):
+    a=[]
+    for N in range(int(input())):
+        a+=[list(map(int, input().split()))]
+    print(a)
