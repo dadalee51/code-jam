@@ -1,17 +1,14 @@
 T=int(input())
 for t in range(T):
+	limN=20
 	ans=''
 	XANS=[]
 	xans=[]
 	noans=False
 	N=int(input())
-	#l8eft and right possibility lists
-
-	X=[]
-	
+	X=[[]for _ in range(limN)]
 	for n in range(N):
 		Q=[]
-		M=[]
 		timer=0
 		S=input()
 		#merge any multiple * into one.
@@ -29,44 +26,43 @@ for t in range(T):
 		c=S.count('*')
 		#create number of lists according to num of stars.
 		for i in range(c+1):
-			Q=list(S.split('*'))
-		
+			Q=list(S.split('*'))			
 		for k,q in enumerate(Q):
-			M+=[[k,q]]
-		#print(f'M={M}')
-		M=sorted(M,key=lambda p:len(p[1]),reverse=False)
-		X+=[M]
-		print(f'X:{X}')
-	#add to list, sortable
-	#X has each side of the star with progressively sorted increments.
+			X[k]+=[q]
+	X=[x for x in X if x!=[]]
 	print(f'X={X}')
-	#traverse list, if a is substring of a+1, maxString is a+1.
-	Z=[[] for z in range(c+1)]
+	#output
+	Z=[[] for z in range(limN)]
+	print(f'Z was {Z}')
 	
-	print('Z was {Z}')
-	for x in X:
-		#split x by first nuber and assign to each group.
-		print(f'x:{x}')
-		for a in x:
-			Z[a[0]]=[a[1]]
-		print('Z:',Z)
-		if noans: break
-		k=1
-		while k < len(x):
-			print(f'...is "{x[k-1][1]}" in "{x[k][1]}"?')
-			if x[k-1][1]=='' or x[k-1][1] in x[k][1]:
-				xans=[x[k][1]]
-				print(f'xans is now {xans}')
-			else:
-				noans=True
-				break
-			k+=1
-		XANS+=[xans]
-	print(XANS)
-	for x in XANS:
-		if x != '':
-			pass
-			#ans+=x
+	#if first or last non-compatNumSeq-existsEmpty > 1 then impossible.
+	#else if lenX is > 2 then any block in btwn can be joined together.
+	for i,x in enumerate(X):
+		if i==0 or i==len(X)-1:
+			if x:print(f'x:{x}')
+			B=sorted(x,key=lambda p:len(p),reverse=False)
+			if B:print(f'B:{B}')
+			for j,b in enumerate(B):
+				if j > 0:
+					if B[j-1] in B[j]:
+						Z[i]=B[j]
+						print(f'Z update{Z}')
+					else:
+						noans=True
+			if Z[i]: print(f'Z[{i}]:{Z[i]},noans:{noans}')
+			if noans: break
+		elif len(X)>2:
+			Z[i]+=x
+			print(f'Z is lenx>2 {Z}')
+		else:
+			print(f'Z else update {Z}')
+			Z[i]+=x
+	
 	if noans:
 		ans='*'
-	print('Case #{}: {}'.format(t,ans))
+	else:
+		print(f'Z is now {Z}')
+		for z in Z:
+			if z!=[]:
+				ans+=z
+	print('Case #{}: {}'.format(t+1,ans))
